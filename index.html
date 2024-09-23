@@ -1,1 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deity</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-color: #0d0d0d;
+            overflow: hidden;
+        }
 
+        .container {
+            text-align: center;
+            z-index: 2;
+        }
+
+        .title {
+            font-size: 48px;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #aaaaaa;
+            margin-bottom: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            color: #ffffff;
+            background-color: #333333;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            background-color: #555555;
+        }
+
+        #background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background-color: #ffffff;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: twinkle 2s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 0.3;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">deity</h1>
+        <p class="subtitle">A multipurpose all-in-one bot, enhancing your experience with user-focused commands.</p>
+        <div class="button-container">
+            <a href="https://discord.com" class="btn">Discord</a>
+            <a href="https://spotify.com" class="btn">Spotify</a>
+            <a href="https://roblox.com" class="btn">Roblox</a>
+        </div>
+    </div>
+    <div id="background"></div>
+
+    <script>
+        const background = document.getElementById('background');
+
+        function createStar() {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 3;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.top = `${Math.random() * window.innerHeight}px`;
+            star.style.left = `${Math.random() * window.innerWidth}px`;
+            background.appendChild(star);
+
+            setTimeout(() => {
+                star.remove();
+            }, 10000); // remove star after 10 seconds
+        }
+
+        function generateStars() {
+            setInterval(createStar, 100);
+        }
+
+        generateStars();
+    </script>
+</body>
+</html>
