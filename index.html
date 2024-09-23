@@ -14,9 +14,15 @@
             100% { content: "deity"; }
         }
 
+        @keyframes blinkCursor {
+            0% { border-right-color: transparent; }
+            50% { border-right-color: white; }
+            100% { border-right-color: transparent; }
+        }
+
         title::after {
             content: "d";
-            animation: typing 2s steps(10, end) infinite;
+            animation: typing 4s steps(10, end) infinite, blinkCursor 1s step-end infinite;
         }
 
         body {
@@ -41,14 +47,15 @@
         }
 
         .contact-info {
-            margin-top: 10px;
-            font-size: 1.2em;
+            margin-top: 5px;
+            font-size: 1em;
+            color: grey;
         }
 
         .button-container {
             display: flex;
             gap: 8px; /* Smaller gap between buttons */
-            margin-bottom: 20px;
+            margin-top: 20px;
         }
 
         .button {
@@ -120,6 +127,7 @@
 </head>
 <body>
     <h1>deity</h1>
+    <div class="contact-info">More inquiries, contact me @ .Deity_</div>
     <div class="button-container">
         <a href="https://discord.com" class="button">
             <img src="https://image.flaticon.com/icons/svg/1051/1051377.svg" class="icon" alt="Discord">
@@ -134,7 +142,6 @@
             Roblox
         </a>
     </div>
-    <div class="contact-info">More inquiries, contact me @ .Deity_</div>
 
     <script>
         const NUM_SNOWFLAKES = 100;
