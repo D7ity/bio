@@ -5,26 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>deity</title>
     <style>
-        @keyframes typing {
-            0% { content: "d"; }
-            20% { content: "de"; }
-            40% { content: "dei"; }
-            60% { content: "deit"; }
-            80% { content: "deity"; }
-            100% { content: "deity"; }
-        }
-
-        @keyframes blinkCursor {
-            0% { border-right-color: transparent; }
-            50% { border-right-color: white; }
-            100% { border-right-color: transparent; }
-        }
-
-        title::after {
-            content: "d";
-            animation: typing 4s steps(10, end) infinite, blinkCursor 1s step-end infinite;
-        }
-
         body {
             margin: 0;
             padding: 0;
@@ -42,7 +22,7 @@
         }
 
         h1 {
-            font-size: 4em; /* Increased title size */
+            font-size: 4em; /* Title size */
             margin: 0 0 10px;
         }
 
@@ -61,7 +41,7 @@
         .button {
             border: 1px solid #29263a;
             background: #1b1b1b;
-            padding: 12px 20px; /* Bigger buttons */
+            padding: 10px 18px; /* Smaller padding for smaller buttons */
             border-radius: 2px;
             color: #fff;
             text-decoration: none;
@@ -71,7 +51,7 @@
             transition: background .3s, transform .3s;
             font-family: manrope, sans-serif;
             font-weight: 600;
-            font-size: 1.1em; /* Increased button text size */
+            font-size: 1.1em; /* Button text size */
             cursor: pointer;
         }
 
@@ -210,6 +190,35 @@
                 startBackgroundAnimation();
             }
         }, 1000);
+
+        // Title typing animation using JavaScript
+        const titleText = "deity";
+        let titleIndex = 0;
+        let isTyping = true;
+
+        function typeTitle() {
+            if (isTyping) {
+                if (titleIndex < titleText.length) {
+                    document.title = titleText.substring(0, titleIndex + 1) + "_";
+                    titleIndex++;
+                    setTimeout(typeTitle, 300);
+                } else {
+                    isTyping = false;
+                    setTimeout(typeTitle, 1000);
+                }
+            } else {
+                if (titleIndex > 0) {
+                    document.title = titleText.substring(0, titleIndex) + "_";
+                    titleIndex--;
+                    setTimeout(typeTitle, 100);
+                } else {
+                    isTyping = true;
+                    setTimeout(typeTitle, 500);
+                }
+            }
+        }
+
+        typeTitle();
     </script>
 </body>
 </html>
