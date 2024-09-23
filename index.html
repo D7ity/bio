@@ -14,23 +14,20 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
-            background-color: #121212;
+            background-color: #242132;
             color: white;
             font-family: Arial, sans-serif;
+            transition: background 1s;
         }
 
         h1 {
             font-size: 3em;
-            margin: 0;
-        }
-
-        p {
-            margin: 10px 0 30px;
+            margin: 0 0 20px;
         }
 
         .button-container {
             display: flex;
-            gap: 20px;
+            gap: 10px; /* Closer buttons */
         }
 
         .button {
@@ -42,7 +39,7 @@
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px; /* Space between icon and text */
             transition: background .3s, transform .3s;
             font-family: manrope, sans-serif;
             font-weight: 600;
@@ -52,6 +49,11 @@
 
         .button:hover {
             background-color: #333;
+        }
+
+        .icon {
+            width: 16px;
+            height: 16px;
         }
 
         .snowflake {
@@ -81,11 +83,19 @@
 </head>
 <body>
     <h1>Deity</h1>
-    <p>A multipurpose all-in-one bot, enhancing your experience with user-focused commands.</p>
     <div class="button-container">
-        <div class="button">Discord</div>
-        <div class="button">Spotify</div>
-        <div class="button">Roblox</div>
+        <div class="button">
+            <img src="https://image.flaticon.com/icons/svg/1051/1051377.svg" class="icon" alt="Discord">
+            Discord
+        </div>
+        <div class="button">
+            <img src="https://image.flaticon.com/icons/svg/174/174872.svg" class="icon" alt="Spotify">
+            Spotify
+        </div>
+        <div class="button">
+            <img src="https://image.flaticon.com/icons/svg/174/174867.svg" class="icon" alt="Roblox">
+            Roblox
+        </div>
     </div>
 
     <script>
@@ -114,11 +124,15 @@
             const width = window.innerWidth;
             const percentage = (clientX / width) * 100;
             const swayStrength = (percentage - 50) / 50; // Between -1 and 1
+            const colorStrength = swayStrength > 0 ? "#242132" : "#060508";
+            document.body.style.backgroundColor = colorStrength;
 
             document.querySelectorAll('.snowflake').forEach(snowflake => {
                 const swayAnimation = snowflake.style.animation.split(',');
+                const direction = swayStrength * 100;
                 swayAnimation[1] = `sway linear infinite ${3 + (swayStrength * 2)}s`;
                 snowflake.style.animation = swayAnimation.join(',');
+                snowflake.style.transform = `translateX(${direction}px) translateY(110vh)`;
             });
         });
     </script>
