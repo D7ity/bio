@@ -5,119 +5,122 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deity</title>
     <style>
-        body, html {
+        body {
             margin: 0;
             padding: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: Arial, sans-serif;
-            background-color: #0d0d0d;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #121212;
+            color: white;
+            font-family: Arial, sans-serif;
         }
 
-        .container {
-            text-align: center;
-            z-index: 2;
+        h1 {
+            font-size: 3em;
+            margin: 0;
         }
 
-        .title {
-            font-size: 48px;
-            color: #ffffff;
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            font-size: 16px;
-            color: #aaaaaa;
-            margin-bottom: 20px;
+        p {
+            margin: 10px 0 30px;
         }
 
         .button-container {
             display: flex;
-            justify-content: center;
-            gap: 10px;
+            gap: 20px;
         }
 
-        .btn {
-            padding: 10px 20px;
-            color: #ffffff;
-            background-color: #333333;
-            border: none;
-            border-radius: 5px;
+        .button {
+            border: 1px solid #29263a;
+            background: #1b1b1b;
+            padding: 8px 16px;
+            border-radius: 2px;
+            color: #fff;
             text-decoration: none;
-            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background .3s, transform .3s;
+            font-family: manrope, sans-serif;
+            font-weight: 600;
+            font-size: .9em;
+            cursor: pointer;
         }
 
-        .btn:hover {
-            background-color: #555555;
+        .button:hover {
+            background-color: #333;
         }
 
-        #background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            overflow: hidden;
-        }
-
-        .star {
-            position: absolute;
-            background-color: #ffffff;
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            background: white;
+            width: 2px;
+            height: 2px;
+            opacity: 0.75;
             border-radius: 50%;
-            opacity: 0.8;
-            animation: twinkle 2s infinite ease-in-out;
+            pointer-events: none;
+            animation: fall linear infinite, sway linear infinite;
         }
 
-        @keyframes twinkle {
-            0%, 100% {
-                opacity: 0.8;
+        @keyframes fall {
+            to {
+                transform: translateY(110vh);
             }
+        }
+
+        @keyframes sway {
             50% {
-                opacity: 0.3;
+                transform: translateX(-100px);
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1 class="title">deity</h1>
-        <p class="subtitle">A multipurpose all-in-one bot, enhancing your experience with user-focused commands.</p>
-        <div class="button-container">
-            <a href="https://discord.com" class="btn">Discord</a>
-            <a href="https://spotify.com" class="btn">Spotify</a>
-            <a href="https://roblox.com" class="btn">Roblox</a>
-        </div>
+    <h1>Deity</h1>
+    <p>A multipurpose all-in-one bot, enhancing your experience with user-focused commands.</p>
+    <div class="button-container">
+        <div class="button">Discord</div>
+        <div class="button">Spotify</div>
+        <div class="button">Roblox</div>
     </div>
-    <div id="background"></div>
 
     <script>
-        const background = document.getElementById('background');
+        const NUM_SNOWFLAKES = 100;
 
-        function createStar() {
-            const star = document.createElement('div');
-            star.className = 'star';
-            const size = Math.random() * 3;
-            star.style.width = `${size}px`;
-            star.style.height = `${size}px`;
-            star.style.top = `${Math.random() * window.innerHeight}px`;
-            star.style.left = `${Math.random() * window.innerWidth}px`;
-            background.appendChild(star);
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.style.left = `${Math.random() * 100}vw`;
+            snowflake.style.animationDuration = `${Math.random() * 3 + 2}s, ${Math.random() * 5 + 3}s`;
+            document.body.appendChild(snowflake);
 
-            setTimeout(() => {
-                star.remove();
-            }, 10000); // remove star after 10 seconds
+            snowflake.addEventListener('animationend', () => {
+                snowflake.remove();
+            });
+
+            return snowflake;
         }
 
-        function generateStars() {
-            setInterval(createStar, 100);
+        for (let i = 0; i < NUM_SNOWFLAKES; i++) {
+            createSnowflake();
         }
 
-        generateStars();
+        document.addEventListener('mousemove', (e) => {
+            const { clientX } = e;
+            const width = window.innerWidth;
+            const percentage = (clientX / width) * 100;
+            const swayStrength = (percentage - 50) / 50; // Between -1 and 1
+
+            document.querySelectorAll('.snowflake').forEach(snowflake => {
+                const swayAnimation = snowflake.style.animation.split(',');
+                swayAnimation[1] = `sway linear infinite ${3 + (swayStrength * 2)}s`;
+                snowflake.style.animation = swayAnimation.join(',');
+            });
+        });
     </script>
 </body>
 </html>
