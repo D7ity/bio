@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>deity</title>
+    <link rel="icon" href="https://raw.githubusercontent.com/D7ity/bio/refs/heads/main/cross.png" type="image/png">
     <style>
         body {
             margin: 0;
@@ -160,7 +161,7 @@
             const width = window.innerWidth;
             const percentage = (clientX / width) * 100;
             const swayStrength = (percentage - 50) / 50; // Between -1 and 1
-            const colorStrength = swayStrength > 0 ? "#242132" : "#060508";
+            const colorStrength = swayStrength < 0 ? "#060508" : "#242132"; // Swap colors
             document.body.style.backgroundColor = colorStrength;
 
             lastColorChangeTime = Date.now();
