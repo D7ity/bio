@@ -21,29 +21,29 @@
         }
 
         h1 {
-            font-size: 3em;
-            margin: 0 0 20px;
+            font-size: 4em; /* Increased title size */
+            margin: 0 0 30px;
         }
 
         .button-container {
             display: flex;
-            gap: 10px; /* Closer buttons */
+            gap: 8px; /* Smaller gap between buttons */
         }
 
         .button {
             border: 1px solid #29263a;
             background: #1b1b1b;
-            padding: 8px 16px;
+            padding: 12px 20px; /* Bigger buttons */
             border-radius: 2px;
             color: #fff;
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 8px; /* Space between icon and text */
+            gap: 10px; /* Space between icon and text */
             transition: background .3s, transform .3s;
             font-family: manrope, sans-serif;
             font-weight: 600;
-            font-size: .9em;
+            font-size: 1.1em; /* Increased button text size */
             cursor: pointer;
         }
 
@@ -52,8 +52,8 @@
         }
 
         .icon {
-            width: 16px;
-            height: 16px;
+            width: 18px; /* Slightly bigger icon */
+            height: 18px;
         }
 
         .snowflake {
@@ -78,6 +78,17 @@
             50% {
                 transform: translateX(-100px);
             }
+        }
+
+        .cursor-trail {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.05s;
         }
     </style>
 </head>
@@ -120,7 +131,7 @@
         }
 
         document.addEventListener('mousemove', (e) => {
-            const { clientX } = e;
+            const { clientX, clientY } = e;
             const width = window.innerWidth;
             const percentage = (clientX / width) * 100;
             const swayStrength = (percentage - 50) / 50; // Between -1 and 1
@@ -134,6 +145,18 @@
                 snowflake.style.animation = swayAnimation.join(',');
                 snowflake.style.transform = `translateX(${direction}px) translateY(110vh)`;
             });
+
+            const trail = document.createElement('div');
+            trail.classList.add('cursor-trail');
+            trail.style.left = `${clientX}px`;
+            trail.style.top = `${clientY}px`;
+            document.body.appendChild(trail);
+
+            trail.style.opacity = 1;
+            setTimeout(() => {
+                trail.style.opacity = 0;
+                trail.addEventListener('transitionend', () => trail.remove());
+            }, 300);
         });
     </script>
 </body>
