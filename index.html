@@ -5,107 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>deity</title>
     <link rel="icon" href="https://raw.githubusercontent.com/D7ity/bio/refs/heads/main/cross.png" type="image/png">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #242132;
-            color: white;
-            font-family: Arial, sans-serif;
-            transition: background 1s;
-            position: relative;
-        }
-
-        h1 {
-            font-size: 4em;
-            margin: 0 0 10px;
-        }
-
-        .contact-info {
-            margin-top: 5px;
-            font-size: 1em;
-            color: grey;
-        }
-
-        .button-container {
-            display: flex;
-            gap: 8px; 
-            margin-top: 20px;
-        }
-
-        .button {
-            border: 1px solid #29263a;
-            background: #1b1b1b;
-            padding: 10px 18px;
-            border-radius: 2px;
-            color: #fff;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px; 
-            transition: background .3s, transform .3s;
-            font-family: manrope, sans-serif;
-            font-weight: 600;
-            font-size: 1.1em;
-            cursor: pointer;
-        }
-
-        .button:hover {
-            background-color: #333;
-            transform: scale(1.05); 
-        }
-
-        .icon {
-            width: 18px;
-            height: 18px;
-        }
-
-        .snowflake {
-            position: fixed;
-            top: -10px;
-            background: white;
-            width: 2px;
-            height: 2px;
-            opacity: 0.75;
-            border-radius: 50%;
-            pointer-events: none;
-            animation: fall linear infinite, sway linear infinite;
-        }
-
-        @keyframes fall {
-            to {
-                transform: translateY(110vh);
-            }
-        }
-
-        @keyframes sway {
-            50% {
-                transform: translateX(-100px);
-            }
-        }
-
-        .cursor-trail {
-            position: fixed;
-            width: 8px;
-            height: 8px;
-            background: white;
-            border-radius: 50%;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s, transform 0.05s;
-        }
-
-        @keyframes backgroundChange {
-            0% { background-color: #242132; }
-            100% { background-color: #060508; }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>deity</h1>
@@ -125,13 +25,22 @@
         </a>
     </div>
 
+    <video id="video-background" autoplay muted loop>
+        <source src="path/to/your/video.mp4" type="video/mp4">
+    </video>
+
     <script>
-        
+        const enableSnowEffect = true; 
+        const enableBackgroundChange = true; 
+        const backgroundType = "gradient"; // Options: "gradient" or "video"
+
         const NUM_SNOWFLAKES = 100;
         let lastColorChangeTime = Date.now();
         let animationInterval;
 
         function createSnowflake() {
+            if (!enableSnowEffect) return;
+
             const snowflake = document.createElement('div');
             snowflake.classList.add('snowflake');
             snowflake.style.left = `${Math.random() * 100}vw`;
@@ -141,11 +50,11 @@
             snowflake.addEventListener('animationend', () => {
                 snowflake.remove();
             });
-
-            return snowflake;
         }
 
         function startBackgroundAnimation() {
+            if (!enableBackgroundChange) return;
+
             if (animationInterval) clearInterval(animationInterval);
 
             document.body.style.animation = 'backgroundChange 2s infinite alternate';
@@ -154,11 +63,23 @@
             }, 5000);
         }
 
-        for (let i = 0; i < NUM_SNOWFLAKES; i++) {
-            createSnowflake();
+        // Initialize background based on the backgroundType flag
+        if (backgroundType === "video") {
+            document.getElementById("video-background").style.display = "block";
+            document.body.style.background = "none"; // Remove any solid background color
+        } else if (backgroundType === "gradient") {
+            document.body.style.backgroundColor = "#242132"; // Set initial gradient color
+        }
+
+        if (enableSnowEffect) {
+            for (let i = 0; i < NUM_SNOWFLAKES; i++) {
+                createSnowflake();
+            }
         }
 
         document.addEventListener('mousemove', (e) => {
+            if (!enableBackgroundChange) return;
+
             const { clientX, clientY } = e;
             const width = window.innerWidth;
             const percentage = (clientX / width) * 100;
@@ -188,11 +109,13 @@
             }, 300);
         });
 
-        setInterval(() => {
-            if (Date.now() - lastColorChangeTime > 5000) {
-                startBackgroundAnimation();
-            }
-        }, 1000);
+        if (enableBackgroundChange) {
+            setInterval(() => {
+                if (Date.now() - lastColorChangeTime > 5000) {
+                    startBackgroundAnimation();
+                }
+            }, 1000);
+        }
 
         const titleText = "deity";
         let titleIndex = 0;
@@ -224,3 +147,4 @@
     </script>
 </body>
 </html>
+
