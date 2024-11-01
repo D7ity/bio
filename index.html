@@ -25,14 +25,23 @@
         </a>
     </div>
 
-    <video id="video-background" autoplay muted loop>
-        <source src="https://r2-bios.e-z.host/885869ca-080c-445a-a444-104880883a37/m9xvrci53v.mp4" type="video/mp4">
+    <video id="video-background" autoplay muted loop style="display: none;">
+        <source id="video-source" src="" type="video/mp4">
     </video>
+
+    <audio id="audio-background" autoplay loop hidden>
+        <source id="audio-source" src="" type="audio/mpeg">
+    </audio>
 
     <script>
         const enableSnowEffect = false; 
         const enableBackgroundChange = false; 
-        const backgroundType = "video"; // Options: "gradient" or "video"
+
+        // Define your flags for the sources
+        let videoFlag = "path/to/your/video.mp4"; 
+        let gifFlag = "https://r2-bios.e-z.host/503520cb-4486-4b81-b8d0-ad8d71b995c4/lki0vzfzo3.gif"; 
+        let audioFlag = "path/to/your/audio.mp3"; 
+        let backgroundType = "gif"; // Options: "gradient", "gif", or "video"
 
         const NUM_SNOWFLAKES = 100;
         let lastColorChangeTime = Date.now();
@@ -64,12 +73,35 @@
         }
 
         // Initialize background based on the backgroundType flag
-        if (backgroundType === "video") {
-            document.getElementById("video-background").style.display = "block";
-            document.body.style.background = "none"; // Remove any solid background color
-        } else if (backgroundType === "gradient") {
-            document.body.style.backgroundColor = "#242132"; // Set initial gradient color
+        const videoBackground = document.getElementById("video-background");
+        const audioBackground = document.getElementById("audio-background");
+        const videoSource = document.getElementById("video-source");
+        const audioSource = document.getElementById("audio-source");
+
+        switch (backgroundType) {
+            case "video":
+                videoSource.src = videoFlag; 
+                videoBackground.style.display = "block"; 
+                audioSource.src = videoFlag.replace(".mp4", ".mp3"); 
+                break;
+            case "gif":
+                document.body.style.background = `url('${gifFlag}') no-repeat center center fixed`;
+                document.body.style.backgroundSize = "cover"; 
+                audioSource.src = audioFlag; 
+                audioBackground.play();
+                break;
+            case "gradient":
+                document.body.style.backgroundColor = "#242132"; 
+                audioSource.src = audioFlag; 
+                break;
         }
+
+        audioBackground.src = audioSource.src;
+
+        videoBackground.onerror = function() {
+            videoBackground.style.display = "none";
+            audioBackground.play(); 
+        };
 
         if (enableSnowEffect) {
             for (let i = 0; i < NUM_SNOWFLAKES; i++) {
