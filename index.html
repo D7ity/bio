@@ -126,16 +126,6 @@
     </div>
 
     <script>
-        async function fetchDiscordAvatar() {
-            try {
-                const response = await fetch('/api/discord?action=callback');
-                const data = await response.json();
-                document.getElementById('discord-avatar').src = data.avatarUrl;
-            } catch (error) {
-            console.error('Error fetching Discord avatar:', error);
-            }
-        }
-        fetchDiscordAvatar();
         
         const NUM_SNOWFLAKES = 100;
         let lastColorChangeTime = Date.now();
