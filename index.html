@@ -36,8 +36,8 @@
     <script>
         const enableSnowEffect = true; 
         const enableBackgroundChange = true; 
+        const mp3OverrideMp4Audio = true; // New flag to prioritize mp3 audio
 
-        // Define your flags for the sources
         let videoFlag = "path/to/your/video.mp4"; 
         let gifFlag = "https://r2-bios.e-z.host/9d311254-d700-4e01-848a-ea461d09f809/6cvlzc5hh4.mp4"; 
         let audioFlag = "https://r2-bios.e-z.host/9d311254-d700-4e01-848a-ea461d09f809/yy6xejavna.mp3"; 
@@ -72,7 +72,6 @@
             }, 5000);
         }
 
-        // Initialize background based on the backgroundType flag
         const videoBackground = document.getElementById("video-background");
         const audioBackground = document.getElementById("audio-background");
         const videoSource = document.getElementById("video-source");
@@ -81,8 +80,14 @@
         switch (backgroundType) {
             case "video":
                 videoSource.src = videoFlag; 
-                videoBackground.style.display = "block"; 
-                audioSource.src = videoFlag.replace(".mp4", ".mp3"); 
+                videoBackground.style.display = "block";
+                if (mp3OverrideMp4Audio) {
+                    audioSource.src = audioFlag;
+                    audioBackground.hidden = false;
+                    audioBackground.play();
+                } else {
+                    audioSource.src = videoFlag.replace(".mp4", ".mp3"); 
+                }
                 break;
             case "gif":
                 document.body.style.background = `url('${gifFlag}') no-repeat center center fixed`;
