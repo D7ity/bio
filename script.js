@@ -1,8 +1,8 @@
 const audio = document.getElementById('bg-audio');
 audio.volume = 0;
 
-window.addEventListener('load', () => {
-    audio.play();
+document.body.addEventListener('click', () => {
+    audio.play(); // Start audio playback on user interaction
     let volume = 0;
     const targetVolume = 0.1;
     const fadeInterval = 50;
