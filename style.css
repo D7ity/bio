@@ -4,6 +4,7 @@
     box-sizing: border-box;
 }
 
+
 .bg-video {
     position: absolute;
     top: 0;
@@ -17,10 +18,10 @@
 
 .above-rectangle {
     position: absolute;
-    top: calc(50% - 362px); /* Increased size for 250% scale */
+    top: calc(50% - 145px);
     left: 50%;
-    width: 637px; /* Increased size */
-    height: 137px; /* Increased size */
+    width: 255px;
+    height: 55px;
     transform: translateX(-50%);
     z-index: 1;
     border-radius: 6px 6px 0 0;
@@ -31,64 +32,65 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 637px; /* Increased size */
-    height: 240px; /* Increased size */
+    width: 255px;
+    height: 96px;
     background-color: rgba(48, 61, 98, 0.4); /* Darker background with higher opacity */
     border-radius: 0 0 6px 6px;
-    transform: translate(-50%, -235%); /* Increased size */
+    transform: translate(-50%, -94%);
     z-index: 1;
-    backdrop-filter: blur(1.25px);
-    -webkit-backdrop-filter: blur(1.25px);
+    backdrop-filter: blur(1.25px); /* Increase the blur effect */
+    -webkit-backdrop-filter: blur(1.25px); /* Safari support */
 }
-
 .timezone-box {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 637px; /* Increased size */
-    height: 78px; /* Increased size */
+    width: 255px;
+    height: 31px;
     background-color: rgba(48, 61, 98, 0.4); /* Darker background with higher opacity */
     border-radius: 5px;
-    transform: translate(-50%, 82.5%); /* Increased size */
+    transform: translate(-50%, 33%);
     z-index: 1;
-    backdrop-filter: blur(1.25px);
-    -webkit-backdrop-filter: blur(1.25px);
+    backdrop-filter: blur(1.25px); /* Increase the blur effect */
+    -webkit-backdrop-filter: blur(1.25px); /* Safari support */
 }
 
 .discord-box {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 637px; /* Increased size */
-    height: 105px; /* Increased size */
+    width: 255px;
+    height: 42px;
     background-color: rgba(48, 61, 98, 0.4); /* Darker background with higher opacity */
     border-radius: 5px;
-    transform: translate(-50%, 273%); /* Increased size */
+    transform: translate(-50%, 109%);
     z-index: 1;
-    backdrop-filter: blur(1.25px);
-    -webkit-backdrop-filter: blur(1.25px);
+    backdrop-filter: blur(1.25px); /* Increase the blur effect */
+    -webkit-backdrop-filter: blur(1.25px); /* Safari support */
 }
+
 
 .audio-player {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 637px; /* Increased size */
-    height: 122px; /* Increased size */
+    width: 255px;
+    height: 49px;
     background-color: rgba(48, 61, 98, 0.4); /* Darker background with higher opacity */
     border-radius: 5px;
-    transform: translate(-50%, 474%); /* Increased size */
+    transform: translate(-50%, 189.5%);
     z-index: 1;
-    backdrop-filter: blur(1.25px);
-    -webkit-backdrop-filter: blur(1.25px);
+    backdrop-filter: blur(1.25px); /* Increase the blur effect */
+    -webkit-backdrop-filter: blur(1.25px); /* Safari support */
 }
+
 
 .profile-circle {
     position: absolute;
-    top: -62px; /* Increased size */
+    top: -25px;
     left: 50%;
-    width: 125px; /* Increased size */
-    height: 125px; /* Increased size */
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     transform: translateX(-50%);
     z-index: 2;
@@ -99,7 +101,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 5rem; /* Increased font size */
+    font-size: 2rem;
     color: white;
     text-align: center;
     display: none;
