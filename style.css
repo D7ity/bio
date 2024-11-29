@@ -17,29 +17,73 @@ html, body {
 
 .above-rectangle {
     position: absolute;
-    top: calc(50% - 145px);
+    top: calc(50.8% - 145px);
     left: 50%;
     width: 255px;
-    height: 55px;
+    height: 52px;
     transform: translateX(-50%);
     z-index: 1;
     border-radius: 6px 6px 0 0;
     object-fit: cover;
 }
 
-.transparent-box {
+.main-box {
     position: absolute;
     top: 50%;
     left: 50%;
     width: 255px;
     height: 96px;
-    background-color: rgba(48, 61, 98, 0.5);
-    border-radius: 0 0 6px 6px;
+    background-color: rgba(48, 61, 98, 0.4); /* Darker background with higher opacity */
+    border-radius: 0 0 5px 5px;
     transform: translate(-50%, -94%);
     z-index: 1;
-    backdrop-filter: blur(1px);
-    -webkit-backdrop-filter: blur(1px);
+    backdrop-filter: blur(1.25px); /* Increase the blur effect */
+    -webkit-backdrop-filter: blur(1.25px); /* Safari support */
 }
+
+.timezone-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 255px;
+    height: 31px;
+    background-color: rgba(48, 61, 98, 0.4); /* Darker background with higher opacity */
+    border-radius: 5px;
+    transform: translate(-50%, 33%);
+    z-index: 1;
+    backdrop-filter: blur(1.25px); /* Increase the blur effect */
+    -webkit-backdrop-filter: blur(1.25px); /* Safari support */
+}
+
+.discord-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 255px;
+    height: 42px;
+    background-color: rgba(48, 61, 98, 0.4); /* Darker background with higher opacity */
+    border-radius: 5px;
+    transform: translate(-50%, 109%);
+    z-index: 1;
+    backdrop-filter: blur(1.25px); /* Increase the blur effect */
+    -webkit-backdrop-filter: blur(1.25px); /* Safari support */
+}
+
+
+.audio-player {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 255px;
+    height: 49px;
+    background-color: rgba(48, 61, 98, 0.4); /* Darker background with higher opacity */
+    border-radius: 5px;
+    transform: translate(-50%, 189.5%);
+    z-index: 1;
+    backdrop-filter: blur(1.25px); /* Increase the blur effect */
+    -webkit-backdrop-filter: blur(1.25px); /* Safari support */
+}
+
 
 .profile-circle {
     position: absolute;
