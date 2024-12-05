@@ -3,34 +3,234 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deity <3</title>
-    <link rel="stylesheet" href="style.css">
+    <title>deity</title>
     <link rel="icon" href="https://raw.githubusercontent.com/D7ity/bio/refs/heads/main/cross.png" type="image/png">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #242132;
+            color: white;
+            font-family: Arial, sans-serif;
+            transition: background 1s;
+            position: relative;
+        }
 
+        h1 {
+            font-size: 4em;
+            margin: 0 0 10px;
+        }
+
+        .contact-info {
+            margin-top: 5px;
+            font-size: 1em;
+            color: grey;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 8px; 
+            margin-top: 20px;
+        }
+
+        .button {
+            border: 1px solid #29263a;
+            background: #1b1b1b;
+            padding: 10px 18px;
+            border-radius: 2px;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px; 
+            transition: background .3s, transform .3s;
+            font-family: manrope, sans-serif;
+            font-weight: 600;
+            font-size: 1.1em;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #333;
+            transform: scale(1.05); 
+        }
+
+        .icon {
+            width: 18px;
+            height: 18px;
+        }
+
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            background: white;
+            width: 2px;
+            height: 2px;
+            opacity: 0.75;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: fall linear infinite, sway linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh);
+            }
+        }
+
+        @keyframes sway {
+            50% {
+                transform: translateX(-100px);
+            }
+        }
+
+        .cursor-trail {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.05s;
+        }
+
+        @keyframes backgroundChange {
+            0% { background-color: #242132; }
+            100% { background-color: #060508; }
+        }
+    </style>
 </head>
 <body>
-    <video class="bg-video" autoplay loop muted playsinline>
-        <source src="https://github.com/D7ity/bio/raw/refs/heads/main/images/pixelcat%20(1)%20(online-video-cutter.com).mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-
-    <!-- 87db615da682ee59a45f3d890181f9bb.jpg other good option -->
-     <img src="https://github.com/D7ity/bio/blob/main/images/49d4f97e340d6b7073855c42890475ef.jpg?raw=true" alt="Above Rectangle Image" class="above-rectangle"> 
-
-    <div class="main-box">
-        <img src="https://github.com/D7ity/bio/blob/main/images/IMG_6885.jpg?raw=true" alt="Profile" class="profile-circle">
+    <h1>deity</h1>
+    <div class="contact-info">For more inquiries, contact me @.deity_</div>
+    <div class="button-container">
+        <a href="https://discord.com/users/942652617245458434" class="button" target="_blank">
+            <img src="https://raw.githubusercontent.com/D7ity/bio/refs/heads/main/discord.png" class="icon" alt="Discord">
+            Discord
+        </a>
+        <a href="https://open.spotify.com/user/313nuacvexhcnrho7buc56oqjcqe" class="button" target="_blank">
+            <img src="https://raw.githubusercontent.com/D7ity/bio/refs/heads/main/spotify.png" class="icon" alt="Spotify">
+            Spotify
+        </a>
+        <a href="https://roblox.com/users/2890766683/profile" class="button" target="_blank">
+            <img src="https://raw.githubusercontent.com/D7ity/bio/refs/heads/main/roblox.png" class="icon" alt="Roblox">
+            Roblox
+        </a>
     </div>
 
-    <div class="timezone-box"></div>
-    <div class="discord-box"></div>
-    <div class="audio-player"></div>
+    <script>
+        async function fetchDiscordAvatar() {
+            try {
+                const response = await fetch('/api/discord?action=callback');
+                const data = await response.json();
+                document.getElementById('discord-avatar').src = data.avatarUrl;
+            } catch (error) {
+            console.error('Error fetching Discord avatar:', error);
+            }
+        }
+        fetchDiscordAvatar();
+        
+        const NUM_SNOWFLAKES = 100;
+        let lastColorChangeTime = Date.now();
+        let animationInterval;
 
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.style.left = `${Math.random() * 100}vw`;
+            snowflake.style.animationDuration = `${Math.random() * 3 + 2}s, ${Math.random() * 5 + 3}s`;
+            document.body.appendChild(snowflake);
 
-    <audio id="bg-audio" loop>
-        <source src="https://github.com/D7ity/bio/raw/refs/heads/main/images/Billie%20Eilish%20-%20THE%20GREATEST%20(Official%20Lyric%20Video).mp3" type="audio/mp3">
-        Your browser does not support the audio tag.
-    </audio>
+            snowflake.addEventListener('animationend', () => {
+                snowflake.remove();
+            });
 
-    <script src="script.js"></script>
+            return snowflake;
+        }
+
+        function startBackgroundAnimation() {
+            if (animationInterval) clearInterval(animationInterval);
+
+            document.body.style.animation = 'backgroundChange 2s infinite alternate';
+            animationInterval = setTimeout(() => {
+                document.body.style.animation = '';
+            }, 5000);
+        }
+
+        for (let i = 0; i < NUM_SNOWFLAKES; i++) {
+            createSnowflake();
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+            const width = window.innerWidth;
+            const percentage = (clientX / width) * 100;
+            const swayStrength = (percentage - 50) / 50; 
+            const colorStrength = swayStrength < 0 ? "#060508" : "#242132"; 
+            document.body.style.backgroundColor = colorStrength;
+
+            lastColorChangeTime = Date.now();
+            document.querySelectorAll('.snowflake').forEach(snowflake => {
+                const swayAnimation = snowflake.style.animation.split(',');
+                const direction = swayStrength * 100;
+                swayAnimation[1] = `sway linear infinite ${3 + (swayStrength * 2)}s`;
+                snowflake.style.animation = swayAnimation.join(',');
+                snowflake.style.transform = `translateX(${direction}px) translateY(110vh)`;
+            });
+
+            const trail = document.createElement('div');
+            trail.classList.add('cursor-trail');
+            trail.style.left = `${clientX}px`;
+            trail.style.top = `${clientY}px`;
+            document.body.appendChild(trail);
+
+            trail.style.opacity = 1;
+            setTimeout(() => {
+                trail.style.opacity = 0;
+                trail.addEventListener('transitionend', () => trail.remove());
+            }, 300);
+        });
+
+        setInterval(() => {
+            if (Date.now() - lastColorChangeTime > 5000) {
+                startBackgroundAnimation();
+            }
+        }, 1000);
+
+        const titleText = "deity";
+        let titleIndex = 0;
+        let isTyping = true;
+
+        function typeTitle() {
+            if (isTyping) {
+                if (titleIndex < titleText.length) {
+                    document.title = titleText.substring(0, titleIndex + 1) + "_";
+                    titleIndex++;
+                    setTimeout(typeTitle, 300);
+                } else {
+                    isTyping = false;
+                    setTimeout(typeTitle, 1000);
+                }
+            } else {
+                if (titleIndex > 0) {
+                    document.title = titleText.substring(0, titleIndex) + "_";
+                    titleIndex--;
+                    setTimeout(typeTitle, 100);
+                } else {
+                    isTyping = true;
+                    setTimeout(typeTitle, 500);
+                }
+            }
+        }
+
+        typeTitle();
+    </script>
 </body>
 </html>
